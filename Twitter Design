@@ -1,0 +1,35 @@
+In system design, always try to design MVP (minimal viabl product), that means only design core features not everything. 
+Devide whole systems into two categoris. May be frontend/backend or onlin/offline.
+
+Data Modelling - We can use relational database like MySQL, in that case there should be two tables User and Feed. User and Feed objects should have relations among themselves. Every feed must ahve an User Object as owner.
+
+Serving Feeds:- Fetch all feeds from the users, the selected user is following and render them accoring to time.
+
+a. When users followed a lot of people, fetching and rendering all their feeds can be costly. How to improve this?
+=> Twittr uses infinite scroll features, hence in every scroll we have to fetch the most recent N feeds from the accumulated feeds. For better pagination and low latency we need to set up caching.
+
+b. Detect fake users?
+=> We can use machine learning here to detect fake users. Using regestration date, number of followers, numbers of feeds or post etc.
+
+c. How to order Feed by other algorithms?
+=> To answer this question we can consider asking many other questions to get a clear picture of what interviewer wants from you:-
+	1. You want to consider average time user spent on twitter, consider user interactions.
+	2. Using machine learning, you want to check what is the probability of a feed to be retweeted or liked by the user.
+	3. Need to consider user relations with author, user's habit, interest, likeness and tendency of retweeting cirtain type of tweets.
+
+d. How will you implement the @ feature and retweet?
+=> For @ feature, we can create a field in Feed object, which will stores all the metioned user ids and it also maintain the insertion order, hence when rendering we encounter a @ mark, we will fetch the item from the list and display theat username.
+ 1. encounter '@'
+ 2. fetch user if from the list.
+ 3. cal twitter api to get user name with that id or also store username in the list along with userid and display its username in different color.
+
+ For retweet feature, Inside feed object we will store the original feed id.
+
+ e. Design 'Trnding Topics' features?
+ => For topic candicates, we can take most frequesnt hashtags in last N hours or all frequesntly used search queries as 'hottest tags'. Then we have to rank them accoring to frequency. 
+
+ f. Design 'Who to follow' features?
+ => 
+
+How to scale the system when there are millions/billions of users?
+How to evaluate the system?
